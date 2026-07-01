@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>给你的祝福</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: #000;
+        }
+
+        /* 登录页面 */
+        .login-page {
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.65)),
+                url("img1.jpg") center / cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            animation: bgMove 10s infinite alternate ease-in-out;
+        }
+
+        .login-box {
+            width: 330px;
+            padding: 35px 30px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.35);
+            text-align: center;
+            color: white;
+            animation: floatBox 3s infinite ease-in-out;
+        }
+
+        .login-box h2 {
+            margin-bottom: 25px;
+            font-size: 28px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+        }
+
+        .login-box input {
+            width: 100%;
+            height: 45px;
+            margin: 12px 0;
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            padding: 0 18px;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .login-box button {
+            margin-top: 20px;
+            width: 100%;
+            height: 45px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #f8d7ff, #a5d8ff);
+            color: #333;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.7);
+        }
+
+        .login-box button:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 28px rgba(255, 255, 255, 1);
+        }
+
+        .tip {
+            margin-top: 15px;
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        /* 主祝福页面 */
+        .blessing-page {
+            position: fixed;
+            inset: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .background {
+            position: absolute;
+            inset: 0;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: opacity 0.8s ease, transform 1.5s ease;
+            animation: bgBreath 8s infinite alternate ease-in-out;
+        }
+
+        .background::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center, rgba(255, 255, 255, 0.15), transparent 45%),
+                linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.55));
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            width: 86%;
+            max-width: 850px;
+            padding: 40px 30px;
+            border-radius: 30px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.28);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 45px rgba(255, 255, 255, 0.28);
+            animation: fadeInUp 1s ease;
+        }
+
+        .blessing-text {
+            font-size: 34px;
+            line-height: 1.7;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 8px rgba(255, 255, 255, 0.9),
+                0 0 20px rgba(180, 220, 255, 0.8);
+            animation: textGlow 2.5s infinite alternate;
+        }
+
+        .small-text {
+            margin-top: 25px;
+            font-size: 15px;
+            opacity: 0.88;
+            letter-spacing: 1px;
+        }
+
+        .page-number {
+            position: absolute;
+            right: 25px;
+            bottom: 20px;
+            z-index: 3;
+            color: white;
+            font-size: 14px;
+            opacity: 0.75;
+        }
+
+        /* 飘落花瓣 */
+        .petal {
+            position: absolute;
+            top: -30px;
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 190, 210, 0.9);
+            border-radius: 80% 0 80% 0;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        /* 动画 */
+        @keyframes bgMove {
+            from {
+                background-position: center top;
+            }
+
+            to {
+                background-position: center bottom;
+            }
+        }
+
+        @keyframes floatBox {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes bgBreath {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow:
+                    0 0 8px rgba(255, 255, 255, 0.8),
+                    0 0 18px rgba(180, 220, 255, 0.6);
+            }
+
+            to {
+                text-shadow:
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 35px rgba(255, 210, 240, 0.95);
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-40px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .blessing-text {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .login-box {
+                width: 86%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 登录页 -->
+    <div class="login-page" id="loginPage">
+        <div class="login-box">
+            <h2>欢迎登录</h2>
+            <input type="text" id="username" placeholder="请输入用户名">
+            <input type="password" id="password" placeholder="请输入密码">
+            <button onclick="login()">进入祝福页面</button>
+            <div class="tip">输入任意用户名和密码即可进入</div>
+        </div>
+    </div>
+
+    <!-- 祝福页 -->
+    <div class="blessing-page" id="blessingPage" onclick="nextBlessing()">
+        <div class="background" id="background"></div>
+
+        <div class="content" id="contentBox">
+            <div class="blessing-text" id="blessingText"></div>
+            <div class="small-text">点击页面，查看下一句祝福</div>
+        </div>
+
+        <div class="page-number" id="pageNumber"></div>
+    </div>
+
+    <script>
+        // 背景图片，按照你发的图片顺序命名
+        const images = [
+            "https://img1.gamersky.com/upimg/users/2022/06/27/origin_202206272011027698.jpg",
+            "https://c-ssl.duitang.com/uploads/blog/202105/08/20210508173207_936a5.thumb.400_0.jpg",
+            "https://c-ssl.duitang.com/uploads/blog/202102/21/20210221193418_94d5c.jpg",
+            "https://c-ssl.duitang.com/uploads/blog/202109/10/20210910004121_fc8cc.jpg"
+        ];
+
+        // 祝福语，也会按照图片顺序切换
+        const blessings = [
+            "愿你的每一天，都像清晨的阳光一样温柔明亮。",
+            "愿风带来好运，愿云带走烦恼，愿你心中永远有光。",
+            "愿你走过的路，花都会盛开；愿你期待的梦，都慢慢成真。",
+            "愿岁月温柔以待，愿所有美好都悄悄奔向你。"
+        ];
+
+        let index = 0;
+
+        const loginPage = document.getElementById("loginPage");
+        const blessingPage = document.getElementById("blessingPage");
+        const background = document.getElementById("background");
+        const blessingText = document.getElementById("blessingText");
+        const pageNumber = document.getElementById("pageNumber");
+        const contentBox = document.getElementById("contentBox");
+
+        function login() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (username === "" || password === "") {
+                alert("请输入用户名和密码哦！");
+                return;
+            }
+
+            loginPage.style.opacity = "0";
+            loginPage.style.transition = "0.8s";
+
+            setTimeout(() => {
+                loginPage.style.display = "none";
+                blessingPage.style.display = "flex";
+                showBlessing();
+                createPetals();
+            }, 800);
+        }
+
+        function showBlessing() {
+            background.style.opacity = "0";
+
+            setTimeout(() => {
+                background.style.backgroundImage = `url('${images[index]}')`;
+                blessingText.innerHTML = blessings[index];
+                pageNumber.innerHTML = `${index + 1} / ${blessings.length}`;
+
+                background.style.opacity = "1";
+
+                // 重新触发文字动画
+                contentBox.style.animation = "none";
+                blessingText.style.animation = "none";
+
+                setTimeout(() => {
+                    contentBox.style.animation = "fadeInUp 1s ease";
+                    blessingText.style.animation = "textGlow 2.5s infinite alternate";
+                }, 20);
+            }, 300);
+        }
+
+        function nextBlessing() {
+            index++;
+
+            if (index >= blessings.length) {
+                index = 0;
+            }
+
+            showBlessing();
+        }
+
+        // 创建飘落花瓣
+        function createPetals() {
+            for (let i = 0; i < 28; i++) {
+                const petal = document.createElement("div");
+                petal.className = "petal";
+
+                petal.style.left = Math.random() * 100 + "vw";
+                petal.style.animationDuration = 5 + Math.random() * 7 + "s";
+                petal.style.animationDelay = Math.random() * 5 + "s";
+                petal.style.opacity = 0.4 + Math.random() * 0.6;
+                petal.style.transform = `scale(${0.6 + Math.random() * 1.1})`;
+
+                blessingPage.appendChild(petal);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
